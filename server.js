@@ -98,19 +98,10 @@ app.get('/budget', async (req, res) => {
             });
         }
 
-        res.json({
-            daily: {
-                limit: DAILY_LIMIT,
-                spent: dailySpent,
-                remaining: parseFloat((DAILY_LIMIT - dailySpent).toFixed(2)),
-            },
-            weekly: {
-                limit: WEEKLY_LIMIT,
-                spent: weeklySpent,
-                remaining: parseFloat((WEEKLY_LIMIT - weeklySpent).toFixed(2)),
-                days,
-            },
-        });
+        const dailyRemaining = parseFloat((DAILY_LIMIT - dailySpent).toFixed(2));
+        const weeklyRemaining = parseFloat((WEEKLY_LIMIT - weeklySpent).toFixed(2));
+
+        res.send(`$${dailyRemaining}/$${weeklyRemaining}`);
     } catch (e) {
         res.status(500).json({ error: e.message });
     }
