@@ -101,7 +101,7 @@ app.get('/budget', async (req, res) => {
         const dailyRemaining = parseFloat((DAILY_LIMIT - dailySpent).toFixed(2));
         const weeklyRemaining = parseFloat((WEEKLY_LIMIT - weeklySpent).toFixed(2));
 
-        res.send(`$${dailyRemaining}/$${weeklyRemaining}`);
+        res.json({ budget: `$${dailyRemaining}/$${weeklyRemaining}` });
     } catch (e) {
         res.status(500).json({ error: e.message });
     }
